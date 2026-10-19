@@ -1,0 +1,15 @@
+# Dayday notices
+
+Dayday is distributed under the MIT License in the repository root.
+
+The Dayflow project (Copyright (c) 2025 Jerry Liu, MIT License) was inspected at commit
+`df3c367edb7d405a78d1ae76edffe4ba366f57d7` while designing Dayday's continuous visual-batch
+approach. No Dayflow source code was copied or translated into this revision. The provenance record
+is `docs/external-sources/O3-20260808-01-dayflow.md`.
+
+The repository retains the complete MarkEdit.app source snapshot (Copyright (c) 2023 MarkEdit.app,
+MIT License), while the Dayday application links its CoreEditor, MarkEditCore and MarkEditKit
+components. The snapshot is pinned to
+`85e670450c1081d4ff92b85ce7052278a8c5e93d` (the `macos-14` release / MarkEdit v1.26.2).
+The provenance and reviewed integration boundary are recorded in
+`docs/external-sources/O4-20260809-01-markdown-editors.md` and ADR 0045.

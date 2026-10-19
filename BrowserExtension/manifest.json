@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Dayday Browser Context",
+  "version": "0.1.0",
+  "description": "Provides a local, non-incognito safety signal for Dayday screen understanding.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtQepPIyUKCZL6jiyeb8hecwe7t/G/Z+tKTpRTRznKDznZfD0+zuaEyosAiiXyA+9BruYzfbuOgFhh9K/0Ru8h80tf+1X0+S2vZQ6XvlukhjWn+pRrSmLP/1FtByoySn6/GITAfTDg2kwfjAqGDiALkKQ7FJt9cweWUKxH7o2cM0bboqV1dDHBE0ziVjKDLRmyJhY9F0u7FEeOtEx1BhrmyDL07A3REspTkO/FNgBf6JdczroAcf8WRHnLaoQ4GKLXd8kmTUWOgfMMnHb3my8+DODDlrebL2phwS89NC6a0bz73XZLqOhMsmce1uSXUeE7lDHbGJAbG3IGgsDAJmUUQIDAQAB",
+  "permissions": ["nativeMessaging", "tabs", "webNavigation", "alarms"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "action": {
+    "default_title": "Dayday Browser Context"
+  }
+}

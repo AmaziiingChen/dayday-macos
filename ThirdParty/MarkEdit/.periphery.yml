@@ -1,0 +1,18 @@
+project: MarkEdit.xcodeproj
+retain_public: true
+schemes:
+- MarkEditMac
+- PreviewExtension
+targets:
+- MarkEditCore.MarkEditCore
+- MarkEditKit.MarkEditKit
+- MarkEditMac
+- Modules.AppKitControls
+- Modules.AppKitExtensions
+- Modules.FontPicker
+- Modules.Previewer
+- Modules.SettingsUI
+- Modules.Statistics
+- Modules.TextBundle
+- Modules.TextCompletion
+- PreviewExtension

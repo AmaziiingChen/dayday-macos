@@ -1,0 +1,49 @@
+{
+  "fill" : {
+    "automatic-gradient" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill" : {
+            "automatic-gradient" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+          },
+          "image-name" : "05-Record-Dot.svg",
+          "name" : "05-Record-Dot"
+        },
+        {
+          "image-name" : "04-Inner-Trace.svg",
+          "name" : "04-Inner-Trace"
+        },
+        {
+          "image-name" : "03-Outer-Trace.svg",
+          "name" : "03-Outer-Trace"
+        },
+        {
+          "image-name" : "02-Primary-D.svg",
+          "name" : "02-Primary-D"
+        },
+        {
+          "fill" : "none",
+          "image-name" : "01-Background.svg",
+          "name" : "01-Background"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

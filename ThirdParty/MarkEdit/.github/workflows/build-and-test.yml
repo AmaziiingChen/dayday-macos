@@ -1,0 +1,49 @@
+name: Build and test
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+    types: [synchronize, opened, reopened, ready_for_review]
+
+jobs:
+  markedit-mac:
+    name: MarkEditMac
+    runs-on: macos-15
+    if: github.event.pull_request.draft == false
+    env:
+      node-version: '20.x'
+      DEVELOPER_DIR: /Applications/Xcode_16.4.app/Contents/Developer
+
+    defaults:
+      run:
+        working-directory: 'CoreEditor'
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ env.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.node-version }}
+          cache: 'npm'
+          cache-dependency-path: '**/yarn.lock'
+
+      - name: Build and test CoreEditor
+        run: |
+          corepack enable
+          yarn install
+          yarn build
+          yarn test
+
+      - name: Build MarkEditMac
+        run: |
+          xcodebuild build -project ../MarkEdit.xcodeproj -scheme MarkEditMac -destination 'platform=macOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+
+      - name: Test MarkEditCoreTests
+        run: |
+          xcodebuild test -project ../MarkEdit.xcodeproj -scheme MarkEditCoreTests -destination 'platform=macOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+
+      - name: Test ModulesTests
+        run: |
+          xcodebuild test -project ../MarkEdit.xcodeproj -scheme ModulesTests -destination 'platform=macOS' CODE_SIGN_IDENTITY="" CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO

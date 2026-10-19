@@ -1,0 +1,65 @@
+name: DaydayHealthCompanion
+
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "17.0"
+  generateEmptyDirectories: false
+  minimumXcodeGenVersion: 2.44.1
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    ARCHS: arm64
+    CLANG_ENABLE_MODULES: YES
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    SWIFT_VERSION: "6.0"
+  configs:
+    Debug:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+    Release:
+      SWIFT_COMPILATION_MODE: wholemodule
+
+targets:
+  DaydayHealthCompanion:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources
+      # The health archive's closed, Codable fact contract is shared byte-for-byte with the Mac.
+      # This is source inclusion rather than a HealthKit dependency in DaydayCore.
+      - path: ../Sources/DaydayCore/HealthObservation.swift
+        group: Shared
+    dependencies:
+      - sdk: libsqlite3.tbd
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: Config/DaydayHealthCompanion.entitlements
+        CODE_SIGN_STYLE: Automatic
+        CURRENT_PROJECT_VERSION: 1
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Config/Info.plist
+        MARKETING_VERSION: 0.1.0
+        PRODUCT_BUNDLE_IDENTIFIER: app.dayday.health-companion
+        PRODUCT_NAME: DaydayHealthCompanion
+        SUPPORTED_PLATFORMS: iphoneos iphonesimulator
+    scheme:
+      gatherCoverageData: false
+      testTargets:
+        - DaydayHealthCompanionTests
+
+  DaydayHealthCompanionTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Tests
+    dependencies:
+      - target: DaydayHealthCompanion
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES

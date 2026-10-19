@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkEdit</title>
+  <link href="../../index.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+  <div id="editor"></div>
+  <script type=module src="./index.ts"></script>
+  <style>
+    html, body {
+      overflow: auto !important;
+      background-color: #ffffff; /* github-light */
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html, body {
+        background-color: #0d1116; /* github-dark */
+      }
+    }
+
+    .cm-editor {
+      height: 100% !important;
+    }
+
+    .cm-content {
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+    }
+  </style>
+</body>
+</html>

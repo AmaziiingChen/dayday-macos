@@ -1,0 +1,32 @@
+#!/bin/sh
+set -eu
+
+dayday_developer_dir="$(xcode-select -p)"
+dayday_module_cache="$(pwd)/.build/module-cache"
+mkdir -p "$dayday_module_cache"
+export CLANG_MODULE_CACHE_PATH="$dayday_module_cache"
+export SWIFTPM_MODULECACHE_OVERRIDE="$dayday_module_cache"
+
+case "$dayday_developer_dir" in
+    */CommandLineTools)
+        dayday_sdk="${DAYDAY_SWIFT_SDK_PATH:-$dayday_developer_dir/SDKs/MacOSX26.sdk}"
+        if [ ! -d "$dayday_sdk" ]; then
+            echo 'Missing macOS 26 SDK. Set DAYDAY_SWIFT_SDK_PATH to a compatible SDK.' >&2
+            exit 1
+        fi
+        exec swift test --build-system native --sdk "$dayday_sdk" --jobs 4 --disable-sandbox \
+            -Xswiftc -I \
+            -Xswiftc "$dayday_developer_dir/usr/lib/swift/macosx" \
+            -Xswiftc -F \
+            -Xswiftc "$dayday_developer_dir/Library/Developer/Frameworks" \
+            -Xlinker -F \
+            -Xlinker "$dayday_developer_dir/Library/Developer/Frameworks" \
+            -Xlinker -rpath \
+            -Xlinker "$dayday_developer_dir/Library/Developer/Frameworks" \
+            -Xlinker -rpath \
+            -Xlinker "$dayday_developer_dir/Library/Developer/usr/lib" "$@"
+        ;;
+    *)
+        exec swift test --disable-sandbox "$@"
+        ;;
+esac

@@ -1,0 +1,77 @@
+name: Dayday
+
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    macOS: "14.0"
+  generateEmptyDirectories: false
+  groupSortPosition: top
+  minimumXcodeGenVersion: 2.44.1
+
+packages:
+  DaydayPackage:
+    path: .
+
+configs:
+  Debug: debug
+  Release: release
+
+settings:
+  base:
+    ARCHS: arm64
+    CLANG_ENABLE_MODULES: YES
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    SWIFT_VERSION: "6.0"
+  configs:
+    Debug:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+    Release:
+      SWIFT_COMPILATION_MODE: wholemodule
+
+targets:
+  Dayday:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: Sources/DaydayApp
+        createIntermediateGroups: true
+        excludes:
+          - Assets.xcassets
+      - path: Design/AppIcon/Dayday-LiquidGlass-Source/Dayday.icon
+        createIntermediateGroups: true
+    dependencies:
+      - package: DaydayPackage
+        product: DaydayCore
+      - package: DaydayPackage
+        product: DaydayStorage
+      - package: DaydayPackage
+        product: DaydayCapture
+      - package: DaydayPackage
+        product: DaydayUnderstanding
+      - package: DaydayPackage
+        product: DaydayAI
+      - package: DaydayPackage
+        product: DaydayIntegrations
+      - package: DaydayPackage
+        product: MarkEditCore
+      - package: DaydayPackage
+        product: MarkEditKit
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: Config/Dayday.entitlements
+        CODE_SIGN_IDENTITY: ""
+        CODE_SIGN_STYLE: Manual
+        CURRENT_PROJECT_VERSION: 1
+        DEVELOPMENT_TEAM: ""
+        ENABLE_HARDENED_RUNTIME: YES
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Config/Info.plist
+        MARKETING_VERSION: 0.1.0
+        PRODUCT_BUNDLE_IDENTIFIER: app.dayday.local
+        PRODUCT_NAME: Dayday
+        ASSETCATALOG_COMPILER_APPICON_NAME: Dayday
+        SUPPORTED_PLATFORMS: macosx
+    scheme:
+      gatherCoverageData: false
+      testTargets: []

@@ -1,0 +1,16 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lavender" x1="164" y1="104" x2="866" y2="916" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D4CAFF"/>
+      <stop offset="0.5" stop-color="#B79DF6"/>
+      <stop offset="1" stop-color="#8062CE"/>
+    </linearGradient>
+  </defs>
+  <rect x="62" y="62" width="900" height="900" rx="226" fill="url(#lavender)"/>
+  <rect x="74" y="74" width="876" height="876" rx="214" stroke="white" stroke-opacity="0.46" stroke-width="24"/>
+  <path d="M236 347C236 276 294 218 365 218H659C730 218 788 276 788 347V677C788 748 730 806 659 806H365C294 806 236 748 236 677V347Z" fill="white"/>
+  <path d="M512 218V806" stroke="#9B7BE6" stroke-width="48"/>
+  <path d="M302 325C302 292 329 265 362 265H463V759H362C329 759 302 732 302 699V325Z" fill="#B39AF0"/>
+  <path d="M722 325C722 292 695 265 662 265H561V759H662C695 759 722 732 722 699V325Z" fill="#8A6BD7"/>
+  <path d="M358 604C407 559 456 559 512 604C568 649 617 649 666 604" stroke="white" stroke-width="42" stroke-linecap="round"/>
+</svg>

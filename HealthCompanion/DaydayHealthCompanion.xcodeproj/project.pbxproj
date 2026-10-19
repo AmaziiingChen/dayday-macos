@@ -1,0 +1,493 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		049015C27C563A0B59279E69 /* HealthCompanionRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A0E1186DE08E68AF5E2876 /* HealthCompanionRootView.swift */; };
+		07D2FFF840DB4489416A5DC9 /* HealthReadCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32393753C5F59949E8092748 /* HealthReadCatalog.swift */; };
+		2C774A1888AB6E2A6BA45658 /* HealthFactQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498DA6FB69C6FE22E01E19DC /* HealthFactQueue.swift */; };
+		2E8AF293DB35A1CB77D50614 /* DaydayHealthCompanionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D06DC7DED9297524A6BAD81 /* DaydayHealthCompanionApp.swift */; };
+		5A112450B0118999B32C2814 /* HealthKitIncrementalReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1122EB688D24C0452C24EF00 /* HealthKitIncrementalReader.swift */; };
+		5CC2A395C9FF6A0C0E653C0E /* HealthFactQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43B1BD6B8E186DAE71D47651 /* HealthFactQueueTests.swift */; };
+		96B1E836C664050717E6E0AB /* HealthReadCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8113A78FDF31481EEA3DB4A /* HealthReadCatalogTests.swift */; };
+		A100C1673DED9F22F6EC79D5 /* HealthFactsTransferEnvelope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4960DDE687CC72D856A4D98F /* HealthFactsTransferEnvelope.swift */; };
+		B36320CB3D74963867531D3F /* HealthFactsTransferEnvelopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A113650F1A3C8C282AFC872 /* HealthFactsTransferEnvelopeTests.swift */; };
+		B6E6D2940972C11288237427 /* HealthLocalSyncClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41086BCB2E9BBD1654C261E5 /* HealthLocalSyncClient.swift */; };
+		BB42CF8F9A246DE009573172 /* HealthImportPlanTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68738FE0B5447FFE0C05446 /* HealthImportPlanTests.swift */; };
+		BE864B4EB3FA50DE090E509A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 19B80CC353AEA91F246EB867 /* libsqlite3.tbd */; };
+		C6C800BB6A46B0B1E59517A8 /* HealthCompanionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3D8BAEA69239FA1A7267DB /* HealthCompanionModel.swift */; };
+		D5C3AA46CE7858C899BC48AD /* HealthReadCoverageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52589C8C047E836C6B2234DF /* HealthReadCoverageView.swift */; };
+		DADF19B4BC7DA8FD25793902 /* LocalHealthFactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3BEDD720B212B7806DEA98 /* LocalHealthFactsView.swift */; };
+		DC00214EE8F2ABE4B7F0DF77 /* HealthImportPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EC527B5849D1F3C433CCE8 /* HealthImportPlan.swift */; };
+		E24B5EB9E069D50584F4B277 /* HealthObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4003F570340583CBAF4D31 /* HealthObservation.swift */; };
+		FD1B197F5DF7FFD2C8DDC90E /* HealthKitBackgroundObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9C415ED42867B53DE8E871 /* HealthKitBackgroundObserver.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B507141BCD71DCD42EE8C29D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8E82F624DA5282235A9E451 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 471016B14433519AE70A2872;
+			remoteInfo = DaydayHealthCompanion;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01A0E1186DE08E68AF5E2876 /* HealthCompanionRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCompanionRootView.swift; sourceTree = "<group>"; };
+		0B48626BC5BF020BA08AA641 /* DaydayHealthCompanion.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DaydayHealthCompanion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1122EB688D24C0452C24EF00 /* HealthKitIncrementalReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitIncrementalReader.swift; sourceTree = "<group>"; };
+		19B80CC353AEA91F246EB867 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		2A113650F1A3C8C282AFC872 /* HealthFactsTransferEnvelopeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFactsTransferEnvelopeTests.swift; sourceTree = "<group>"; };
+		32393753C5F59949E8092748 /* HealthReadCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthReadCatalog.swift; sourceTree = "<group>"; };
+		41086BCB2E9BBD1654C261E5 /* HealthLocalSyncClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthLocalSyncClient.swift; sourceTree = "<group>"; };
+		43B1BD6B8E186DAE71D47651 /* HealthFactQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFactQueueTests.swift; sourceTree = "<group>"; };
+		4960DDE687CC72D856A4D98F /* HealthFactsTransferEnvelope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFactsTransferEnvelope.swift; sourceTree = "<group>"; };
+		498DA6FB69C6FE22E01E19DC /* HealthFactQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthFactQueue.swift; sourceTree = "<group>"; };
+		4F4003F570340583CBAF4D31 /* HealthObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HealthObservation.swift; path = ../Sources/DaydayCore/HealthObservation.swift; sourceTree = "<group>"; };
+		52589C8C047E836C6B2234DF /* HealthReadCoverageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthReadCoverageView.swift; sourceTree = "<group>"; };
+		5F9C415ED42867B53DE8E871 /* HealthKitBackgroundObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitBackgroundObserver.swift; sourceTree = "<group>"; };
+		7486EE04D242DEDC00652E17 /* DaydayHealthCompanionTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DaydayHealthCompanionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A3D8BAEA69239FA1A7267DB /* HealthCompanionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthCompanionModel.swift; sourceTree = "<group>"; };
+		8D06DC7DED9297524A6BAD81 /* DaydayHealthCompanionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaydayHealthCompanionApp.swift; sourceTree = "<group>"; };
+		94EC527B5849D1F3C433CCE8 /* HealthImportPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthImportPlan.swift; sourceTree = "<group>"; };
+		AA3BEDD720B212B7806DEA98 /* LocalHealthFactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalHealthFactsView.swift; sourceTree = "<group>"; };
+		C68738FE0B5447FFE0C05446 /* HealthImportPlanTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthImportPlanTests.swift; sourceTree = "<group>"; };
+		E8113A78FDF31481EEA3DB4A /* HealthReadCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthReadCatalogTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CB7C5FBD582B71932F6D1305 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE864B4EB3FA50DE090E509A /* libsqlite3.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1B6EFBE82988D872A2CCD759 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0B48626BC5BF020BA08AA641 /* DaydayHealthCompanion.app */,
+				7486EE04D242DEDC00652E17 /* DaydayHealthCompanionTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		56FE2BACB67AC5587D5C0156 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8D06DC7DED9297524A6BAD81 /* DaydayHealthCompanionApp.swift */,
+				8A3D8BAEA69239FA1A7267DB /* HealthCompanionModel.swift */,
+				01A0E1186DE08E68AF5E2876 /* HealthCompanionRootView.swift */,
+				498DA6FB69C6FE22E01E19DC /* HealthFactQueue.swift */,
+				4960DDE687CC72D856A4D98F /* HealthFactsTransferEnvelope.swift */,
+				94EC527B5849D1F3C433CCE8 /* HealthImportPlan.swift */,
+				5F9C415ED42867B53DE8E871 /* HealthKitBackgroundObserver.swift */,
+				1122EB688D24C0452C24EF00 /* HealthKitIncrementalReader.swift */,
+				41086BCB2E9BBD1654C261E5 /* HealthLocalSyncClient.swift */,
+				32393753C5F59949E8092748 /* HealthReadCatalog.swift */,
+				52589C8C047E836C6B2234DF /* HealthReadCoverageView.swift */,
+				AA3BEDD720B212B7806DEA98 /* LocalHealthFactsView.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		785BDFD567F40188998870FD /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				43B1BD6B8E186DAE71D47651 /* HealthFactQueueTests.swift */,
+				2A113650F1A3C8C282AFC872 /* HealthFactsTransferEnvelopeTests.swift */,
+				C68738FE0B5447FFE0C05446 /* HealthImportPlanTests.swift */,
+				E8113A78FDF31481EEA3DB4A /* HealthReadCatalogTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		8E38F0E7CCFE9E517A90619F = {
+			isa = PBXGroup;
+			children = (
+				E4A14F26216CF581A72B4DF7 /* Shared */,
+				56FE2BACB67AC5587D5C0156 /* Sources */,
+				785BDFD567F40188998870FD /* Tests */,
+				CFB3563619441CC8227333E1 /* Frameworks */,
+				1B6EFBE82988D872A2CCD759 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CFB3563619441CC8227333E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				19B80CC353AEA91F246EB867 /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4A14F26216CF581A72B4DF7 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				4F4003F570340583CBAF4D31 /* HealthObservation.swift */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		471016B14433519AE70A2872 /* DaydayHealthCompanion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B66D0AC5D0174D87AA2F2E0 /* Build configuration list for PBXNativeTarget "DaydayHealthCompanion" */;
+			buildPhases = (
+				35DC324A497492E92118E831 /* Sources */,
+				CB7C5FBD582B71932F6D1305 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DaydayHealthCompanion;
+			packageProductDependencies = (
+			);
+			productName = DaydayHealthCompanion;
+			productReference = 0B48626BC5BF020BA08AA641 /* DaydayHealthCompanion.app */;
+			productType = "com.apple.product-type.application";
+		};
+		82B17B2E26D9FD7F852645C4 /* DaydayHealthCompanionTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 971D02AB6ECCE8A490C509D9 /* Build configuration list for PBXNativeTarget "DaydayHealthCompanionTests" */;
+			buildPhases = (
+				CBE14F6BDB68AB96E9E85239 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				12DE36642AA11D39ECF97E27 /* PBXTargetDependency */,
+			);
+			name = DaydayHealthCompanionTests;
+			packageProductDependencies = (
+			);
+			productName = DaydayHealthCompanionTests;
+			productReference = 7486EE04D242DEDC00652E17 /* DaydayHealthCompanionTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B8E82F624DA5282235A9E451 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					471016B14433519AE70A2872 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 8FE4D812C9FE1BE5D8597560 /* Build configuration list for PBXProject "DaydayHealthCompanion" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 8E38F0E7CCFE9E517A90619F;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 1B6EFBE82988D872A2CCD759 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				471016B14433519AE70A2872 /* DaydayHealthCompanion */,
+				82B17B2E26D9FD7F852645C4 /* DaydayHealthCompanionTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		35DC324A497492E92118E831 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E8AF293DB35A1CB77D50614 /* DaydayHealthCompanionApp.swift in Sources */,
+				C6C800BB6A46B0B1E59517A8 /* HealthCompanionModel.swift in Sources */,
+				049015C27C563A0B59279E69 /* HealthCompanionRootView.swift in Sources */,
+				2C774A1888AB6E2A6BA45658 /* HealthFactQueue.swift in Sources */,
+				A100C1673DED9F22F6EC79D5 /* HealthFactsTransferEnvelope.swift in Sources */,
+				DC00214EE8F2ABE4B7F0DF77 /* HealthImportPlan.swift in Sources */,
+				FD1B197F5DF7FFD2C8DDC90E /* HealthKitBackgroundObserver.swift in Sources */,
+				5A112450B0118999B32C2814 /* HealthKitIncrementalReader.swift in Sources */,
+				B6E6D2940972C11288237427 /* HealthLocalSyncClient.swift in Sources */,
+				E24B5EB9E069D50584F4B277 /* HealthObservation.swift in Sources */,
+				07D2FFF840DB4489416A5DC9 /* HealthReadCatalog.swift in Sources */,
+				D5C3AA46CE7858C899BC48AD /* HealthReadCoverageView.swift in Sources */,
+				DADF19B4BC7DA8FD25793902 /* LocalHealthFactsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CBE14F6BDB68AB96E9E85239 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5CC2A395C9FF6A0C0E653C0E /* HealthFactQueueTests.swift in Sources */,
+				B36320CB3D74963867531D3F /* HealthFactsTransferEnvelopeTests.swift in Sources */,
+				BB42CF8F9A246DE009573172 /* HealthImportPlanTests.swift in Sources */,
+				96B1E836C664050717E6E0AB /* HealthReadCatalogTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		12DE36642AA11D39ECF97E27 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 471016B14433519AE70A2872 /* DaydayHealthCompanion */;
+			targetProxy = B507141BCD71DCD42EE8C29D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		321EA4CED3E1014615F93051 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DaydayHealthCompanion.app/DaydayHealthCompanion";
+			};
+			name = Debug;
+		};
+		50AF4047AF3A6FF2CB75C530 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		74C7FDD5AB0CFDE2A313E765 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Config/DaydayHealthCompanion.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.dayday.health-companion";
+				PRODUCT_NAME = DaydayHealthCompanion;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8C704A3FF3489CECA423D73F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DaydayHealthCompanion.app/DaydayHealthCompanion";
+			};
+			name = Release;
+		};
+		ADF238C2BBF013606F7B1CC0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Config/DaydayHealthCompanion.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.dayday.health-companion";
+				PRODUCT_NAME = DaydayHealthCompanion;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F705AE90BA4125351A02192E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2B66D0AC5D0174D87AA2F2E0 /* Build configuration list for PBXNativeTarget "DaydayHealthCompanion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADF238C2BBF013606F7B1CC0 /* Debug */,
+				74C7FDD5AB0CFDE2A313E765 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8FE4D812C9FE1BE5D8597560 /* Build configuration list for PBXProject "DaydayHealthCompanion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50AF4047AF3A6FF2CB75C530 /* Debug */,
+				F705AE90BA4125351A02192E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		971D02AB6ECCE8A490C509D9 /* Build configuration list for PBXNativeTarget "DaydayHealthCompanionTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				321EA4CED3E1014615F93051 /* Debug */,
+				8C704A3FF3489CECA423D73F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B8E82F624DA5282235A9E451 /* Project object */;
+}

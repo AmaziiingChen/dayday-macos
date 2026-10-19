@@ -1,0 +1,14 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lavender" x1="168" y1="114" x2="862" y2="912" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D7CEFF"/>
+      <stop offset="0.48" stop-color="#B89EF6"/>
+      <stop offset="1" stop-color="#7D5DCC"/>
+    </linearGradient>
+  </defs>
+  <rect x="62" y="62" width="900" height="900" rx="226" fill="url(#lavender)"/>
+  <rect x="74" y="74" width="876" height="876" rx="214" stroke="white" stroke-opacity="0.46" stroke-width="24"/>
+  <path fill-rule="evenodd" d="M218 236H392C594 236 716 350 716 512C716 674 594 788 392 788H218V236ZM354 364V660H391C499 660 564 604 564 512C564 420 499 364 391 364H354Z" fill="white"/>
+  <path fill-rule="evenodd" d="M413 236H590C794 236 906 350 906 512C906 674 794 788 590 788H413V236ZM549 364V660H589C698 660 754 604 754 512C754 420 698 364 589 364H549Z" fill="white" fill-opacity="0.7"/>
+  <path d="M444 270V754" stroke="#9A7BE6" stroke-width="33" stroke-linecap="round"/>
+</svg>

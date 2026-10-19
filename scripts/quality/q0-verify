@@ -1,0 +1,182 @@
+#!/bin/sh
+# Q0 is intentionally build-only: it never launches Dayday, requests TCC, or
+# contacts a remote package registry. All generated state is kept in .build/.
+
+set -u
+
+dayday_script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+dayday_root=$(CDPATH= cd -- "$dayday_script_dir/../.." && pwd)
+dayday_base=HEAD
+dayday_all_swift=0
+dayday_failures=0
+
+usage() {
+    cat <<'EOF'
+Usage: scripts/quality/q0-verify [--base <git-revision>] [--all-swift]
+
+Runs Dayday's non-interactive Q0 verification gates. By default, Swift format
+linting covers Swift files changed relative to HEAD, while --base makes an
+explicit comparison suitable for a branch or pull request. --all-swift is a
+diagnostic full-tree lint; it is expected to expose existing baseline debt
+until that debt is separately resolved.
+EOF
+}
+
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+        --base)
+            if [ "$#" -lt 2 ]; then
+                echo "error: --base requires a git revision" >&2
+                exit 64
+            fi
+            dayday_base=$2
+            shift 2
+            ;;
+        --all-swift)
+            dayday_all_swift=1
+            shift
+            ;;
+        --help|-h)
+            usage
+            exit 0
+            ;;
+        *)
+            echo "error: unknown option: $1" >&2
+            usage >&2
+            exit 64
+            ;;
+    esac
+done
+
+cd "$dayday_root"
+
+if ! git rev-parse --verify --quiet "$dayday_base^{commit}" >/dev/null; then
+    echo "error: base revision is not a commit: $dayday_base" >&2
+    exit 64
+fi
+
+dayday_quality_root="$dayday_root/.build/quality"
+dayday_swiftpm_cache="$dayday_quality_root/swiftpm"
+dayday_cf_user_home="$dayday_quality_root/foundation-user-home"
+dayday_xcode_derived_data="$dayday_quality_root/xcode-derived-release"
+dayday_xcode_package_cache="$dayday_quality_root/xcode-package-cache"
+dayday_xcode_source_packages="$dayday_quality_root/xcode-source-packages"
+dayday_changed_swift="$dayday_quality_root/changed-swift-files"
+dayday_log_dir="$dayday_quality_root/logs"
+dayday_gate_count=0
+
+mkdir -p \
+    "$dayday_swiftpm_cache/module-cache" \
+    "$dayday_swiftpm_cache/configuration" \
+    "$dayday_swiftpm_cache/security" \
+    "$dayday_swiftpm_cache/cache" \
+    "$dayday_cf_user_home" \
+    "$dayday_xcode_derived_data" \
+    "$dayday_xcode_package_cache" \
+    "$dayday_xcode_source_packages" \
+    "$dayday_log_dir"
+
+export CLANG_MODULE_CACHE_PATH="$dayday_swiftpm_cache/module-cache"
+export SWIFTPM_MODULECACHE_OVERRIDE="$dayday_swiftpm_cache/module-cache"
+export SWIFTPM_CONFIG_PATH="$dayday_swiftpm_cache/configuration"
+export SWIFTPM_SECURITY_PATH="$dayday_swiftpm_cache/security"
+export SWIFTPM_CACHE_PATH="$dayday_swiftpm_cache/cache"
+# Xcode's local-package manifest loader uses Foundation home-directory lookup
+# for diagnostics. Keep that otherwise user-global location under .build too.
+export CFFIXED_USER_HOME="$dayday_cf_user_home"
+
+run_gate() {
+    dayday_gate_name=$1
+    shift
+    dayday_gate_count=$((dayday_gate_count + 1))
+    dayday_gate_log="$dayday_log_dir/gate-$dayday_gate_count.log"
+    printf '\n==> %s\n' "$dayday_gate_name"
+    if "$@" > "$dayday_gate_log" 2>&1; then
+        printf 'PASS %s (%s)\n' "$dayday_gate_name" "$dayday_gate_log"
+    else
+        dayday_gate_status=$?
+        printf 'FAIL %s (exit %s; log %s)\n' \
+            "$dayday_gate_name" "$dayday_gate_status" "$dayday_gate_log" >&2
+        tail -n 80 "$dayday_gate_log" >&2
+        dayday_failures=$((dayday_failures + 1))
+    fi
+}
+
+check_ignored_cache() {
+    git check-ignore --quiet "$dayday_quality_root/probe"
+}
+
+lint_changed_swift() {
+    if ! command -v swift >/dev/null 2>&1; then
+        echo "swift is not available" >&2
+        return 127
+    fi
+
+    if [ "$dayday_all_swift" -eq 1 ]; then
+        swift format lint --recursive --strict --no-color-diagnostics Sources Tests
+        return
+    fi
+
+    git diff --name-only -z --diff-filter=ACMR "$dayday_base" -- '*.swift' > "$dayday_changed_swift"
+    git ls-files --others --exclude-standard -z -- '*.swift' >> "$dayday_changed_swift"
+    if [ ! -s "$dayday_changed_swift" ]; then
+        echo "SKIP swift format lint: no Swift files changed relative to $dayday_base"
+        return 0
+    fi
+    xargs -0 swift format lint --strict --no-color-diagnostics < "$dayday_changed_swift"
+}
+
+run_swiftpm_tests() {
+    swift test \
+        --cache-path "$dayday_swiftpm_cache/cache" \
+        --config-path "$dayday_swiftpm_cache/configuration" \
+        --security-path "$dayday_swiftpm_cache/security" \
+        --scratch-path "$dayday_quality_root/swiftpm-test" \
+        --disable-sandbox
+}
+
+run_swiftpm_release_build() {
+    swift build \
+        --configuration release \
+        --cache-path "$dayday_swiftpm_cache/cache" \
+        --config-path "$dayday_swiftpm_cache/configuration" \
+        --security-path "$dayday_swiftpm_cache/security" \
+        --scratch-path "$dayday_quality_root/swiftpm-release" \
+        --disable-sandbox
+}
+
+run_xcode_release_build() {
+    xcodebuild \
+        -project Dayday.xcodeproj \
+        -scheme Dayday \
+        -configuration Release \
+        -destination 'platform=macOS,arch=arm64' \
+        -derivedDataPath "$dayday_xcode_derived_data" \
+        -clonedSourcePackagesDirPath "$dayday_xcode_source_packages" \
+        -packageCachePath "$dayday_xcode_package_cache" \
+        -disableAutomaticPackageResolution \
+        -onlyUsePackageVersionsFromResolvedFile \
+        -skipPackageUpdates \
+        -disablePackageRepositoryCache \
+        CODE_SIGNING_ALLOWED=NO \
+        build
+}
+
+echo "Dayday Q0 verification"
+echo "Base: $dayday_base"
+echo "Build state: .build/quality (ignored by git)"
+
+run_gate "cache is ignored" check_ignored_cache
+run_gate "diff hygiene" git diff --check "$dayday_base"
+run_gate "Swift format lint" lint_changed_swift
+run_gate "SwiftPM tests" run_swiftpm_tests
+run_gate "SwiftPM Release build" run_swiftpm_release_build
+run_gate "unsigned Xcode Release build" run_xcode_release_build
+
+if [ "$dayday_failures" -eq 0 ]; then
+    printf '\nQ0 PASSED: 6 gates passed\n'
+    exit 0
+fi
+
+printf '\nQ0 FAILED: %s gate(s) failed\n' "$dayday_failures" >&2
+exit 1
