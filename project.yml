@@ -62,7 +62,7 @@ targets:
         CODE_SIGN_ENTITLEMENTS: Config/Dayday.entitlements
         CODE_SIGN_IDENTITY: ""
         CODE_SIGN_STYLE: Manual
-        CURRENT_PROJECT_VERSION: 1
+        CURRENT_PROJECT_VERSION: 2
         DEVELOPMENT_TEAM: ""
         ENABLE_HARDENED_RUNTIME: YES
         GENERATE_INFOPLIST_FILE: NO

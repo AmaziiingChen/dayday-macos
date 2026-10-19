@@ -59,8 +59,8 @@ struct DaydayMarkdownEditorTheme: Codable, Equatable {
   }
 }
 
-private extension DaydayRGBA {
-  func cssColor(opacity overrideOpacity: Double? = nil) -> String {
+extension DaydayRGBA {
+  fileprivate func cssColor(opacity overrideOpacity: Double? = nil) -> String {
     let red = Int((min(1, max(0, self.red)) * 255).rounded())
     let green = Int((min(1, max(0, self.green)) * 255).rounded())
     let blue = Int((min(1, max(0, self.blue)) * 255).rounded())
@@ -191,6 +191,7 @@ struct JournalMarkEditEditor: NSViewRepresentable {
   @MainActor
   final class Coordinator: NSObject {
     var parent: JournalMarkEditEditor
+    private let resourceBundle: Bundle
     private weak var webView: WKWebView?
     private var bridge: WebModuleBridge?
     private var attachmentLoader: JournalAttachmentResourceLoader?
@@ -217,8 +218,9 @@ struct JournalMarkEditEditor: NSViewRepresentable {
     private var readinessTask: Task<Void, Never>?
     private var snapshotTask: Task<Void, Never>?
 
-    init(parent: JournalMarkEditEditor) {
+    init(parent: JournalMarkEditEditor, resourceBundle: Bundle = .main) {
       self.parent = parent
+      self.resourceBundle = resourceBundle
       self.lastMarkdown = parent.markdown
       self.lastImageResourceIDs = Set(parent.imageResources.keys)
       self.lastReadOnlyMode = parent.isReadOnly
@@ -257,7 +259,7 @@ struct JournalMarkEditEditor: NSViewRepresentable {
       configuration.preferences.javaScriptCanOpenWindowsAutomatically = false
       configuration.websiteDataStore = .nonPersistent()
       configuration.setURLSchemeHandler(
-        JournalMarkEditChunkLoader(),
+        JournalMarkEditChunkLoader(bundle: resourceBundle),
         forURLScheme: JournalMarkEditChunkLoader.scheme
       )
       let attachmentLoader = JournalAttachmentResourceLoader(resources: parent.imageResources)
@@ -437,25 +439,41 @@ struct JournalMarkEditEditor: NSViewRepresentable {
     }
 
     private func loadEditor(in webView: WKWebView) {
-      guard JournalMarkEditResources.url(for: "index.html") != nil,
-        JournalMarkEditResources.text(for: "dayday-live-preview.js") != nil
-      else {
-        parent.onStateChange(.failed)
+      let html: String
+      do {
+        html = try JournalMarkEditResources.html(
+          configuration: editorConfiguration(text: lastMarkdown),
+          bundle: resourceBundle
+        )
+        guard
+          JournalMarkEditResources.text(for: "dayday-live-preview.js", bundle: resourceBundle)
+            != nil
+        else {
+          publishEditorState(.failed)
+          return
+        }
+      } catch {
+        publishEditorState(.failed)
         return
       }
-      parent.onStateChange(.loading)
+      publishEditorState(.loading)
       isLoaded = false
       isInitializingEditor = false
       lastAppliedEditorTheme = nil
       lastAppliedPlaceholder = nil
       readinessTask?.cancel()
-      let html = editorConfiguration(text: lastMarkdown).toHtml
-        .replacingOccurrences(of: "\"{{USER_SETTINGS}}\"", with: "{}")
       webView.loadHTMLString(html, baseURL: URL(string: "http://localhost/"))
       readinessTask = Task { @MainActor [weak self] in
         try? await Task.sleep(for: .seconds(5))
         guard let self, !Task.isCancelled, !self.isLoaded else { return }
         self.parent.onStateChange(.failed)
+      }
+    }
+
+    private func publishEditorState(_ state: JournalMarkEditState) {
+      // NSView creation runs during a SwiftUI update; publish after that update finishes.
+      DispatchQueue.main.async { [weak self] in
+        self?.parent.onStateChange(state)
       }
     }
 
@@ -473,7 +491,8 @@ struct JournalMarkEditEditor: NSViewRepresentable {
 
     private func installLivePreview(attempt: Int) {
       guard let webView,
-        let script = JournalMarkEditResources.text(for: "dayday-live-preview.js")
+        let script = JournalMarkEditResources.text(
+          for: "dayday-live-preview.js", bundle: resourceBundle)
       else {
         failInitialization()
         return
@@ -610,10 +629,11 @@ struct JournalMarkEditEditor: NSViewRepresentable {
     }
 
     private func publishSelection(_ info: LineColumnInfo) {
-      publishSelection(.init(
-        selectedText: info.selectionText,
-        attachmentID: Self.attachmentID(in: info.selectionText)
-      ))
+      publishSelection(
+        .init(
+          selectedText: info.selectionText,
+          attachmentID: Self.attachmentID(in: info.selectionText)
+        ))
     }
 
     private func publishSelection(_ selection: JournalMarkEditSelectionState) {
@@ -668,10 +688,12 @@ struct JournalMarkEditEditor: NSViewRepresentable {
     }
 
     private static func attachmentID(in markdown: String) -> JournalAttachmentID? {
-      guard let range = markdown.range(
-        of: #"dayday-attachment://([0-9A-Fa-f-]{36})"#,
-        options: .regularExpression
-      ) else { return nil }
+      guard
+        let range = markdown.range(
+          of: #"dayday-attachment://([0-9A-Fa-f-]{36})"#,
+          options: .regularExpression
+        )
+      else { return nil }
       let value = String(markdown[range]).replacingOccurrences(of: "dayday-attachment://", with: "")
       guard let uuid = UUID(uuidString: value) else { return nil }
       return JournalAttachmentID(rawValue: uuid)
@@ -693,7 +715,8 @@ extension JournalMarkEditEditor.Coordinator: EditorModuleCoreDelegate {
     Task { await synchronizeMarkdown() }
   }
 
-  func editorCoreBackgroundColorDidChange(_ sender: EditorModuleCore, color: UInt32, alpha: Double) {}
+  func editorCoreBackgroundColorDidChange(_ sender: EditorModuleCore, color: UInt32, alpha: Double)
+  {}
   func editorCoreViewportScaleDidChange(_ sender: EditorModuleCore) {}
 
   func editorCoreViewDidUpdate(
@@ -733,7 +756,9 @@ extension JournalMarkEditEditor.Coordinator: EditorModuleCoreDelegate {
 extension JournalMarkEditEditor.Coordinator: EditorModuleAPIDelegate {
   func editorAPIGetFileURL(_ sender: EditorModuleAPI) -> URL? { nil }
   func editorAPI(_ sender: EditorModuleAPI, addMainMenuItems items: [(String, WebMenuItem)]) {}
-  func editorAPI(_ sender: EditorModuleAPI, showContextMenu items: [WebMenuItem], location: WebPoint) {}
+  func editorAPI(
+    _ sender: EditorModuleAPI, showContextMenu items: [WebMenuItem], location: WebPoint
+  ) {}
   func editorAPI(
     _ sender: EditorModuleAPI,
     alertWith title: String?,
@@ -746,7 +771,9 @@ extension JournalMarkEditEditor.Coordinator: EditorModuleAPIDelegate {
     placeholder: String?,
     defaultValue: String?
   ) -> String? { nil }
-  func editorAPI(_ sender: EditorModuleAPI, showSavePanel data: Data, fileName: String?) -> Bool { false }
+  func editorAPI(_ sender: EditorModuleAPI, showSavePanel data: Data, fileName: String?) -> Bool {
+    false
+  }
 }
 
 @MainActor
@@ -833,32 +860,43 @@ final class JournalMarkEditHostView: NSView {
 
 private final class JournalMarkEditChunkLoader: NSObject, WKURLSchemeHandler {
   static let scheme = "chunk-loader"
+  private let bundle: Bundle
+
+  init(bundle: Bundle = .main) {
+    self.bundle = bundle
+    super.init()
+  }
 
   func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
     guard let url = urlSchemeTask.request.url,
       url.host == "chunks",
-      let resourceURL = JournalMarkEditResources.url(for: "chunks/\(url.lastPathComponent)"),
+      let resourceURL = JournalMarkEditResources.url(
+        for: "chunks/\(url.lastPathComponent)", bundle: bundle),
       let data = try? Data(contentsOf: resourceURL)
     else {
       urlSchemeTask.didFailWithError(URLError(.fileDoesNotExist))
       return
     }
-    let mimeType = switch url.pathExtension {
-    case "js": "text/javascript"
-    case "css": "text/css"
-    case "woff2": "font/woff2"
-    default: "application/octet-stream"
-    }
-    let response = HTTPURLResponse(
-      url: url,
-      statusCode: 200,
-      httpVersion: nil,
-      headerFields: [
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-store",
-        "Content-Type": mimeType,
-      ]
-    ) ?? URLResponse(url: url, mimeType: mimeType, expectedContentLength: data.count, textEncodingName: nil)
+    let mimeType =
+      switch url.pathExtension {
+      case "js": "text/javascript"
+      case "css": "text/css"
+      case "woff2": "font/woff2"
+      default: "application/octet-stream"
+      }
+    let response =
+      HTTPURLResponse(
+        url: url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: [
+          "Access-Control-Allow-Origin": "*",
+          "Cache-Control": "no-store",
+          "Content-Type": mimeType,
+        ]
+      )
+      ?? URLResponse(
+        url: url, mimeType: mimeType, expectedContentLength: data.count, textEncodingName: nil)
     urlSchemeTask.didReceive(response)
     urlSchemeTask.didReceive(data)
     urlSchemeTask.didFinish()
@@ -867,7 +905,9 @@ private final class JournalMarkEditChunkLoader: NSObject, WKURLSchemeHandler {
   func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {}
 }
 
-private final class JournalAttachmentResourceLoader: NSObject, WKURLSchemeHandler, @unchecked Sendable {
+private final class JournalAttachmentResourceLoader: NSObject, WKURLSchemeHandler,
+  @unchecked Sendable
+{
   static let scheme = "dayday-attachment"
 
   private let lock = NSLock()
@@ -923,7 +963,9 @@ private final class JournalMarkEditMessageHandler: NSObject, WKScriptMessageHand
     self.delegate = delegate
   }
 
-  func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+  func userContentController(
+    _ userContentController: WKUserContentController, didReceive message: WKScriptMessage
+  ) {
     guard let body = message.body as? [String: Any],
       let action = body["action"] as? String
     else { return }
@@ -939,21 +981,40 @@ private final class JournalMarkEditMessageHandler: NSObject, WKScriptMessageHand
   }
 }
 
-private enum JournalMarkEditResources {
-  static func url(for name: String) -> URL? {
+enum JournalMarkEditResources {
+  enum LoadingError: Error, Equatable {
+    case missingTemplate
+  }
+
+  static func html(configuration: EditorConfig, bundle: Bundle = .main) throws -> String {
+    guard let templateURL = url(for: "index.html", bundle: bundle) else {
+      throw LoadingError.missingTemplate
+    }
+    let template = try String(contentsOf: templateURL, encoding: .utf8)
+    let configurationJSON = String(decoding: try JSONEncoder().encode(configuration), as: UTF8.self)
+    return
+      template
+      .replacingOccurrences(of: "/chunk-loader/", with: "chunk-loader://")
+      .replacingOccurrences(of: "\"{{EDITOR_CONFIG}}\"", with: configurationJSON)
+      .replacingOccurrences(of: "\"{{USER_SETTINGS}}\"", with: "{}")
+  }
+
+  static func url(for name: String, bundle: Bundle = .main) -> URL? {
     let path = name.hasPrefix("/") ? String(name.dropFirst()) : name
     let pathURL = URL(fileURLWithPath: path)
     let fileName = pathURL.deletingPathExtension().lastPathComponent
     let fileExtension = pathURL.pathExtension
-    return Bundle.main.url(forResource: "MarkEdit/\(path)", withExtension: nil)
-      ?? Bundle.main.url(
+    return bundle.url(forResource: "MarkEdit/\(path)", withExtension: nil)
+      ?? bundle.url(
         forResource: fileName,
         withExtension: fileExtension.isEmpty ? nil : fileExtension
       )
   }
 
-  static func text(for name: String) -> String? {
-    guard let url = url(for: name), let data = try? Data(contentsOf: url) else { return nil }
+  static func text(for name: String, bundle: Bundle = .main) -> String? {
+    guard let url = url(for: name, bundle: bundle), let data = try? Data(contentsOf: url) else {
+      return nil
+    }
     return String(data: data, encoding: .utf8)
   }
 }

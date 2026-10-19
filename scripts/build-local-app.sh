@@ -51,7 +51,7 @@ if [[ "$(xcode-select -p)" == */CommandLineTools ]]; then
   /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier $bundle_identifier" "$app_path/Contents/Info.plist"
   /usr/libexec/PlistBuddy -c 'Set :CFBundleName Dayday' "$app_path/Contents/Info.plist"
   /usr/libexec/PlistBuddy -c 'Set :CFBundleShortVersionString 0.1.0' "$app_path/Contents/Info.plist"
-  /usr/libexec/PlistBuddy -c 'Set :CFBundleVersion 1' "$app_path/Contents/Info.plist"
+  /usr/libexec/PlistBuddy -c 'Set :CFBundleVersion 2' "$app_path/Contents/Info.plist"
   /usr/libexec/PlistBuddy -c 'Set :LSMinimumSystemVersion 14.0' "$app_path/Contents/Info.plist"
   iconset_path="$project_dir/.build/Dayday.iconset"
   mkdir -p "$iconset_path"
